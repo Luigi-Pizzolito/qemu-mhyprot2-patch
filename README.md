@@ -13,7 +13,7 @@ Without it, the anti-cheat's kernel-mode `vmcall` probe makes KVM rewrite the
 guest's instruction bytes. That write hits a read-only kernel page and Windows
 bugchecks with `0xBE ATTEMPTED_WRITE_TO_READONLY_MEMORY`.
 
-- `qemu-10.2.2.patch` sets `KVM_X86_QUIRK_FIX_HYPERCALL_INSN` off through `KVM_CAP_DISABLE_QUIRKS2` in `kvm_arch_init`.
+- `qemu-<version>.patch` sets `KVM_X86_QUIRK_FIX_HYPERCALL_INSN` off through `KVM_CAP_DISABLE_QUIRKS2` in `kvm_arch_init`.
 - `kvm-hypercall-patch/` hooks `kvm_emulate_hypercall` so guest hypercalls get #UD, as on real hardware.
 
 ## Usage
@@ -25,8 +25,8 @@ Requires the build dependencies (Arch: `sudo pacman -S git wget base-devel glib2
 ./run
 ```
 
-This downloads QEMU 10.2.2, applies the patch, builds, installs to `/usr`
-(override with `PREFIX=/usr/local ./run`), installs the DKMS module, and enables
+This downloads QEMU 11.1.3, applies the patch, builds, installs to `/usr/local`
+(so it does not overwrite your package manager's QEMU; override with `PREFIX=/usr ./run`), installs the DKMS module, and enables
 it at boot through `/etc/modules-load.d/kvm-hypercall-patch.conf`.
 
 Then fully shut down and restart the VM. Verify with:
@@ -40,11 +40,13 @@ sudo dmesg | grep -i "hypercall ud hook"
 
 | Path | Purpose |
 |------|---------|
-| `qemu-10.2.2.patch` | Combined QEMU patch (anti-detection + hypercall quirk) |
+| `qemu-11.1.3.patch` | Combined QEMU patch for 11.1.3 (matches current Arch `qemu`) |
+| `qemu-10.2.2.patch` | Same patch for 10.2.2 |
 | `kvm-hypercall-patch/` | DKMS module making vmcall/vmmcall raise #UD |
 | `configs/samuil1337.xml` | Example libvirt domain |
-| `ssdt1.dat` | SSDT used by the example config |
+| `ssdt1.dat` | Optional ACPI table adding a fake laptop battery (load with `-acpitable file=ssdt1.dat`); not referenced by the example config |
 | `run` | Build and install script |
 
 Other QEMU versions: add a `qemu-<version>.patch` and run `QEMU_VERSION=<version> ./run`.
-The hypercall hunk must be re-created for versions other than 10.2.2.
+Other versions usually need their patch ported by hand, since some string hunks move between releases.
+Build against the same version your distro ships (currently 11.1.3 on Arch), so the installed binary matches the rest of the QEMU package.

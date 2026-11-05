@@ -3,8 +3,8 @@
 # the kvm-hypercall-patch DKMS module that makes vmcall/vmmcall raise #UD.
 set -euo pipefail
 
-QEMU_VERSION="${QEMU_VERSION:-10.2.2}"
-PREFIX="${PREFIX:-/usr}"
+QEMU_VERSION="${QEMU_VERSION:-11.1.3}"
+PREFIX="${PREFIX:-/usr/local}"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 SRC="$HERE/build/qemu-$QEMU_VERSION"
 
