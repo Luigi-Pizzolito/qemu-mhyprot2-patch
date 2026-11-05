@@ -1126,50 +1126,6 @@ index 1a7d842..bb10ad4 100644
  #define QGA_PROVIDER_LNAME L(QGA_PROVIDER_NAME)
  #define QGA_PROVIDER_VERSION L(QEMU_VERSION)
  #define QGA_PROVIDER_REGISTRY_ADDRESS "SYSTEM\\CurrentControlSet"\
-diff --git a/subprojects/libvduse/standard-headers/linux/qemu_fw_cfg.h b/subprojects/libvduse/standard-headers/linux/qemu_fw_cfg.h
-index cb93f66..c1a5be5 100644
---- a/subprojects/libvduse/standard-headers/linux/qemu_fw_cfg.h
-+++ b/subprojects/libvduse/standard-headers/linux/qemu_fw_cfg.h
-@@ -4,7 +4,7 @@
- 
- #include "standard-headers/linux/types.h"
- 
--#define FW_CFG_ACPI_DEVICE_ID	"QEMU0002"
-+#define FW_CFG_ACPI_DEVICE_ID	"ASUS0002"
- 
- /* selector key values for "well-known" fw_cfg entries */
- #define FW_CFG_SIGNATURE	0x00
-@@ -71,7 +71,7 @@ struct fw_cfg_file {
- #define FW_CFG_DMA_CTL_SELECT	0x08
- #define FW_CFG_DMA_CTL_WRITE	0x10
- 
--#define FW_CFG_DMA_SIGNATURE    0x51454d5520434647ULL /* "QEMU CFG" */
-+#define FW_CFG_DMA_SIGNATURE    0x4153532520444647ULL /* "QEMU CFG" */
- 
- /* Control as first field allows for different structures selected by this
-  * field, which might be useful in the future
-diff --git a/subprojects/libvhost-user/standard-headers/linux/qemu_fw_cfg.h b/subprojects/libvhost-user/standard-headers/linux/qemu_fw_cfg.h
-index cb93f66..c1a5be5 100644
---- a/subprojects/libvhost-user/standard-headers/linux/qemu_fw_cfg.h
-+++ b/subprojects/libvhost-user/standard-headers/linux/qemu_fw_cfg.h
-@@ -4,7 +4,7 @@
- 
- #include "standard-headers/linux/types.h"
- 
--#define FW_CFG_ACPI_DEVICE_ID	"QEMU0002"
-+#define FW_CFG_ACPI_DEVICE_ID	"ASUS0002"
- 
- /* selector key values for "well-known" fw_cfg entries */
- #define FW_CFG_SIGNATURE	0x00
-@@ -71,7 +71,7 @@ struct fw_cfg_file {
- #define FW_CFG_DMA_CTL_SELECT	0x08
- #define FW_CFG_DMA_CTL_WRITE	0x10
- 
--#define FW_CFG_DMA_SIGNATURE    0x51454d5520434647ULL /* "QEMU CFG" */
-+#define FW_CFG_DMA_SIGNATURE    0x4153532520444647ULL /* "QEMU CFG" */
- 
- /* Control as first field allows for different structures selected by this
-  * field, which might be useful in the future
 diff --git a/target/i386/kvm/kvm.c b/target/i386/kvm/kvm.c
 index 644c45f..bdd48b9 100644
 --- a/target/i386/kvm/kvm.c
