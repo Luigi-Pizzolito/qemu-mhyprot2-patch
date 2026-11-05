@@ -25,9 +25,12 @@ Requires the build dependencies (Arch: `sudo pacman -S git wget base-devel glib2
 ./run
 ```
 
-This downloads QEMU 11.1.3, applies the patch, builds, installs to `/usr/local`
-(so it does not overwrite your package manager's QEMU; override with `PREFIX=/usr ./run`), installs the DKMS module, and enables
+This downloads QEMU 11.1.3, applies the patch, builds, installs over the system QEMU in `/usr`
+(use `PREFIX=/usr/local ./run` to keep the package-managed copy; libvirt then needs that emulator path), installs the DKMS module, and enables
 it at boot through `/etc/modules-load.d/kvm-hypercall-patch.conf`.
+
+The patched version must match the QEMU package you have installed, otherwise the binary and the other QEMU files will be mixed.
+A distro QEMU update overwrites the patched binary, so run `./run` again after updating (and port the patch if the version changed).
 
 Then fully shut down and restart the VM. Verify with:
 
